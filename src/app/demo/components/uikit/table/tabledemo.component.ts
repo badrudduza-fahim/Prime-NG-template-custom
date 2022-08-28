@@ -5,6 +5,8 @@ import { Customer, Representative } from 'src/app/demo/api/customer';
 import { Product } from 'src/app/demo/api/product';
 import { CustomerService } from 'src/app/demo/service/customer.service';
 import { ProductService } from 'src/app/demo/service/product.service';
+import {UserService} from "../../../service/user.service";
+import {UserModels} from "../../../models/user.models";
 
 interface expandedRows {
     [key: string]: boolean;
@@ -34,6 +36,7 @@ export class TableDemoComponent implements OnInit {
     customers2: Customer[] = [];
 
     customers3: Customer[] = [];
+    users: UserModels[] = [];
 
     selectedCustomers1: Customer[] = [];
 
@@ -59,7 +62,7 @@ export class TableDemoComponent implements OnInit {
 
     @ViewChild('filter') filter!: ElementRef;
 
-    constructor(private customerService: CustomerService, private productService: ProductService) { }
+    constructor(private customerService: CustomerService, private productService: ProductService, private userService: UserService) { }
 
     ngOnInit() {
         this.customerService.getCustomersLarge().then(customers => {
@@ -69,6 +72,7 @@ export class TableDemoComponent implements OnInit {
             // @ts-ignore
             this.customers1.forEach(customer => customer.date = new Date(customer.date));
         });
+        this.loadusers();
         this.customerService.getCustomersMedium().then(customers => this.customers2 = customers);
         this.customerService.getCustomersLarge().then(customers => this.customers3 = customers);
         this.productService.getProductsWithOrdersSmall().then(data => this.products = data);
@@ -146,5 +150,12 @@ export class TableDemoComponent implements OnInit {
     clear(table: Table) {
         table.clear();
         this.filter.nativeElement.value = '';
+    }
+
+    private loadusers() {
+        this.userService.getAllUsers().subscribe(users => {
+            this.users = users.data;
+            console.log('users ****** ', this.users);
+        })
     }
 }
