@@ -1,0 +1,28 @@
+<form [formGroup]="signUpForm" class="form-horizontal position-relative">
+    <div class="row">
+        <div class="col form-group">
+            <h5 class="caption" for="username">
+                User Name *
+            </h5>
+            <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+                <input type="text" pInputText placeholder="Default">
+            </div>
+            <h5>Float Label</h5>
+            <span class="p-float-label">
+				<input id="float-input" type="text" pInputText>
+				<label for="float-input">Username</label>
+			</span>
+            <input type="text"
+                   id="username"
+                   formControlName="username"
+                   class="form-control"
+                   placeholder="image:tag"
+                   autocomplete="off"
+                   [ngClass]="{'is-invalid': userNameInvalid}"
+                   required>
+            <span *ngIf="userNameInvalid" class="invalid-feedback">
+                user name is invalid
+            </span>
+        </div>
+    </div>
+</form>
