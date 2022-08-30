@@ -72,7 +72,7 @@ export class TableDemoComponent implements OnInit {
             // @ts-ignore
             this.customers1.forEach(customer => customer.date = new Date(customer.date));
         });
-        this.loadusers();
+        this.loadUsers();
         this.customerService.getCustomersMedium().then(customers => this.customers2 = customers);
         this.customerService.getCustomersLarge().then(customers => this.customers3 = customers);
         this.productService.getProductsWithOrdersSmall().then(data => this.products = data);
@@ -152,7 +152,7 @@ export class TableDemoComponent implements OnInit {
         this.filter.nativeElement.value = '';
     }
 
-    private loadusers() {
+    private loadUsers() {
         this.userService.getAllUsers().subscribe(users => {
             this.users = users.data;
             console.log('users ****** ', this.users);
